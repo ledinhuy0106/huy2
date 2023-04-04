@@ -74,7 +74,15 @@ public class MainStudent {
                     String numberPhone = scanner.nextLine();
                     System.out.print("Nhập địa chỉ mới: ");
                     String newAddress = scanner.nextLine();
-                    Student newStudent = new Student(id, newName, newAddress, numberPhone, newAge);
+                    System.out.println("Nhập giới tính học sinh");
+                    String genDer1 = scanner.nextLine();
+                    if (genDer1.equalsIgnoreCase("nu")
+                            || genDer1.equalsIgnoreCase("Nữ")) genDer = Student.Gender.FEMALE.getValue();
+                    else if (genDer1.equalsIgnoreCase("nam")
+                            || genDer1.equalsIgnoreCase("Nam")) genDer = Student.Gender.MALE.getValue();
+                    else genDer1 = Student.Gender.OTHER.getValue();
+
+                    Student newStudent = new Student(id, newName, newAddress, numberPhone, newAge,genDer1);
                     studentService.update(newStudent);
                     System.out.println("Sửa thông tin sinh viên thành công");
                     break;
