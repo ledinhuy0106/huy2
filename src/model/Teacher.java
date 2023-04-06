@@ -4,21 +4,20 @@ public class Teacher {
     private int id=1;
     private String name;
     private int age;
-    private Position position;
+    private String position;
     private String phoneNumber;
 
 
     public Teacher() {
     }
 
-    public Teacher(int id, String name, int age, Position position, String phoneNumber) {
+    public Teacher(int id, String name, int age, String position, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.position = position;
         this.phoneNumber = phoneNumber;
     }
-
     // Getter và setter cho các thuộc tính
 
     public int getId() {
@@ -45,11 +44,11 @@ public class Teacher {
         this.age = age;
     }
 
-    public Position getPosition() {
+    public String getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(String position) {
         this.position = position;
     }
 
@@ -62,6 +61,17 @@ public class Teacher {
     }
 
     // Định nghĩa enum Position
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", position=" + position +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
+    }
 
     public enum Position {
         PRINCIPAL("Hiệu trưởng"),

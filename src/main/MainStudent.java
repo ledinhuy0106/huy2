@@ -81,8 +81,7 @@ public class MainStudent {
                     else if (genDer1.equalsIgnoreCase("nam")
                             || genDer1.equalsIgnoreCase("Nam")) genDer = Student.Gender.MALE.getValue();
                     else genDer1 = Student.Gender.OTHER.getValue();
-
-                    Student newStudent = new Student(id, newName, newAddress, numberPhone, newAge,genDer1);
+                    Student newStudent = new Student(id, newName, newAddress, numberPhone, newAge, genDer1);
                     studentService.update(newStudent);
                     System.out.println("Sửa thông tin sinh viên thành công");
                     break;
@@ -109,11 +108,73 @@ public class MainStudent {
                         System.out.println(result);
                     }
                     break;
-                case 6:break;
-                case 7:break;
-                case 8:break;
-                case 9:break;
-                case 10:break;
+                case 6:
+                    System.out.print("Nhập tên giáo viên: ");
+                    String nameTeacher = scanner.nextLine();
+                    System.out.print("Nhập tuổi: ");
+                    int ageTeacher = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Nhập số điện thoại: ");
+                    String phoneNumber2 = scanner.nextLine();
+                    boolean hasPrincipal = false;
+                    boolean hasVicePrincipal = false;
+                    String position;
+                    do {
+                        System.out.print("Nhập chức vụ: ");
+                        position = scanner.nextLine();
+                        if (position.equalsIgnoreCase("Hiệu trưởng")||position.equalsIgnoreCase("hieu truong")) {
+                            boolean foundVicePrincipal = false;
+                            for (Teacher teacher : teacherService.getAll()) {
+                                if (teacher.getPosition().contains("Hiệu phó")) {
+                                    System.out.println("Mỗi trường học chỉ có 1 hiệu phó");
+                                    foundVicePrincipal = true;
+                                    break;
+                                }
+                            }
+                            if (!foundVicePrincipal) {
+                                position = Teacher.Position.VICE_PRINCIPAL.getValue();
+                                hasVicePrincipal = true;
+                            }
+                        } else if (position.equalsIgnoreCase("Hiệu phó")||position.equalsIgnoreCase("hieu pho")) {
+                            boolean foundVicePrincipal = false;
+                            for (Teacher teacher : teacherService.getAll()) {
+                                if (teacher.getPosition().contains("Hiệu phó")) {
+                                    System.out.println("Mỗi trường học chỉ có 1 hiệu phó");
+                                    foundVicePrincipal = true;
+                                    break;
+                                }
+                            }
+                            if (!foundVicePrincipal) {
+                                position = Teacher.Position.VICE_PRINCIPAL.getValue();
+                                hasVicePrincipal = true;
+                            }
+                        } else {
+                            position = Teacher.Position.TEACHER.getValue();
+                            hasPrincipal = true;
+                            hasVicePrincipal = true;
+                        }
+                    } while (!hasPrincipal || !hasVicePrincipal);
+
+                    int id2 = teacher2.getId();
+                    teacher2.setId(id2);
+                    Teacher teacher0 = new Teacher(id2, nameTeacher, ageTeacher, position, phoneNumber2);
+                    teacherService.add(teacher0);
+                    System.out.println("Thêm giáo viên thành công");
+                    break;
+
+                case 7:
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    System.out.println("Danh sách sinh viên:");
+                    for (Teacher teacher : teacherService.getAll()) {
+                        System.out.println(teacher);
+                    }
+                    break;
+
+                case 10:
+                    break;
                 case 0:
                     running = false;
                     System.out.println("Kết thúc chương trình");
