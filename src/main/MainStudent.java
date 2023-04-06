@@ -10,6 +10,9 @@ import service.Impl.TeacherServiceImpl;
 import service.Service;
 import service.Impl.StudentServiceImpl;
 
+import static service.Impl.StudentServiceImpl.update2;
+import static service.Impl.TeacherServiceImpl.update1;
+
 public class MainStudent {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -62,28 +65,7 @@ public class MainStudent {
                     System.out.println("Thêm sinh viên thành công");
                     break;
                 case 2:
-                    System.out.print("Nhập ID sinh viên cần sửa: ");
-                    int id = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.print("Nhập tên mới: ");
-                    String newName = scanner.nextLine();
-                    System.out.print("Nhập tuổi mới: ");
-                    int newAge = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.print("Nhập số điện thoại mới: ");
-                    String numberPhone = scanner.nextLine();
-                    System.out.print("Nhập địa chỉ mới: ");
-                    String newAddress = scanner.nextLine();
-                    System.out.println("Nhập giới tính học sinh");
-                    String genDer1 = scanner.nextLine();
-                    if (genDer1.equalsIgnoreCase("nu")
-                            || genDer1.equalsIgnoreCase("Nữ")) genDer1 = Student.Gender.FEMALE.getValue();
-                    else if (genDer1.equalsIgnoreCase("nam")
-                            || genDer1.equalsIgnoreCase("Nam")) genDer1 = Student.Gender.MALE.getValue();
-                    else genDer1 = Student.Gender.OTHER.getValue();
-                    Student newStudent = new Student(id, newName, newAddress, numberPhone, newAge, genDer1);
-                    studentService.update(newStudent);
-                    System.out.println("Sửa thông tin sinh viên thành công");
+                    update2();
                     break;
                 case 3:
                     System.out.print("Nhập ID sinh viên cần xóa: ");
@@ -113,16 +95,31 @@ public class MainStudent {
                     break;
 
                 case 7:
+                    update1();
                     break;
                 case 8:
+                    System.out.print("Nhập ID giao viên cần xóa: ");
+                    int deleteId2 = scanner.nextInt();
+                    teacherService.delete(deleteId2);
+                    System.out.println("Xóa giao viên thành công");
+                    break;
                 case 9:
-                    System.out.println("Danh sách sinh viên:");
+                    System.out.println("Danh sách giao viên:");
                     for (Teacher teacher : teacherService.getAll()) {
                         System.out.println(teacher);
                     }
                     break;
 
                 case 10:
+                    System.out.print("Nhập ID giao viên cần tìm: ");
+                    int searchId2 = scanner.nextInt();
+                    scanner.nextLine();
+                    Student result1 = studentService.getOne(searchId2);
+                    if (result1 == null) {
+                        System.out.println("Không tìm thấy giao viên");
+                    } else {
+                        System.out.println(result1);
+                    }
                 case 0:
                     running = false;
                     System.out.println("Kết thúc chương trình");
